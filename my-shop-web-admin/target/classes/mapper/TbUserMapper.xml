@@ -91,4 +91,12 @@
             </if>
         </where>
     </select>
+
+    <delete id="deleteMulti">
+        delete from tb_user
+        where id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

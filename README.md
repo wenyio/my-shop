@@ -1,6 +1,8 @@
 # my-shop
-整合所学,边学边更新
+初探模块化开发,利用所学技术
 
 ## 技术
-spring springmvc mytatis
-maven 模块化
+spring springmvc mytatis   
+
+## 工具
+maven 
