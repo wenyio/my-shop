@@ -10,10 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import work.idler.my.shop.commons.dto.BaseResult;
+import work.idler.my.shop.commons.dto.PageInfo;
 import work.idler.my.shop.domain.TbUser;
 import work.idler.my.shop.web.admin.service.TbUserService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理
@@ -50,9 +55,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String list(Model model) {
-        List<TbUser> tbUsers = tbUserService.selectAll();
-        model.addAttribute("tbUsers", tbUsers);
+    public String list() {
         return "user_list";
     }
 
@@ -83,19 +86,6 @@ public class UserController {
     }
 
     /**
-     * 搜索
-     * @param tbUser
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "search", method = RequestMethod.POST)
-    public String search(TbUser tbUser, Model model) {
-        List<TbUser> tbUsers = tbUserService.search(tbUser);
-        model.addAttribute("tbUsers", tbUsers);
-        return "user_list";
-    }
-
-    /**
      * 删除用户信息
      * @param ids
      * @return
@@ -116,4 +106,64 @@ public class UserController {
 
         return baseResult;
     }
+
+    /**
+     * 分页查找
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "page", method = RequestMethod.GET)
+    public PageInfo<TbUser> page(HttpServletRequest request, TbUser tbUser) {
+        String strDraw = request.getParameter("draw");
+        String strStart = request.getParameter("start");
+        String strLength = request.getParameter("length");
+
+        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
+        int start = strStart == null ? 0 : Integer.parseInt(strStart);
+        int length = strLength == null ? 0 : Integer.parseInt(strLength);
+
+        // 封装 Dataables 需要得结果
+        PageInfo<TbUser> pageInfo = tbUserService.page(start, length, draw, tbUser);
+
+        return pageInfo;
+    }
+
+    /**
+     * 显示用户详情
+     * @param tbUser
+     * @return
+     */
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    public String detail(TbUser tbUser) {
+        System.out.println(tbUser.getUsername());
+        return "user_detail";
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

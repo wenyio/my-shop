@@ -45,51 +45,45 @@
                     <div class="box box-info box-info-search" style="display: none;">
                         <div class="box-header">
                             <h3 class="box-title">高级搜索</h3>
+                            <div class="box-body">
+                                <div class="row form-horizontal">
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="form-group">
+                                            <label for="username" class="col-sm-4 control-label">姓名</label>
 
-                            <div class="row" STYLE="padding-top: 20PX">
-                                <form:form cssClass="form-horizontal" action="/user/search" method="post" modelAttribute="tbUser">
-                                    <div class="row">
-                                        <div class="box-body">
-
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="form-group">
-                                                <label for="username" class="col-sm-4 control-label">姓名</label>
-
-                                                <div class="col-sm-8">
-                                                    <form:input path="username" cssClass="form-control" placeholder="姓名"/>
-                                                </div>
+                                            <div class="col-sm-8">
+                                                <input id="username" class="form-control" placeholder="姓名"/>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="form-group">
-                                                <label for="email" class="col-sm-4 control-label">邮箱</label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-4 control-label">邮箱</label>
 
-                                                <div class="col-sm-8">
-                                                    <form:input path="email" cssClass="form-control" placeholder="邮箱"/>
-                                                </div>
+                                            <div class="col-sm-8">
+                                                <input id="email" class="form-control" placeholder="邮箱"/>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="col-sm-4 control-label">手机</label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="form-group">
+                                            <label for="phone" class="col-sm-4 control-label">手机</label>
 
-                                                <div class="col-sm-8">
-                                                    <form:input path="phone" cssClass="form-control" placeholder="手机"/>
-                                                </div>
+                                            <div class="col-sm-8">
+                                                <input id="phone" class="form-control" placeholder="手机"/>
                                             </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-3">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <button type="submit" class="btn btn-info">搜索</button>
-                                                </div>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
 
-                                </form:form>
+
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button type="button" class="btn btn-info" onclick="search();">搜索</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -110,7 +104,7 @@
 
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
+                            <table id="dataTable" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" class="minimal icheck_master"></th>
@@ -118,29 +112,29 @@
                                         <th>用户名</th>
                                         <th>手机号</th>
                                         <th>邮箱</th>
-                                        <th>创建时间</th>
-                                        <th>更新时间</th>
+<%--                                        <th>创建时间</th>--%>
+<%--                                        <th>更新时间</th>--%>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${tbUsers}" var="tbUser">
                                     <tr>
-                                        <td><input id="${tbUser.id}" type="checkbox" class="minimal"></td>
-                                        <td>${tbUser.id}</td>
-                                        <td>${tbUser.username}</td>
-                                        <td>${tbUser.phone}</td>
-                                        <td>${tbUser.email}</td>
-                                        <td><fmt:formatDate value="${tbUser.created}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                                        <td><fmt:formatDate value="${tbUser.updated}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                                        <td>
-                                            <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i> 查看</a>&nbsp;
-                                            <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;
-                                            <a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</a>
-                                        </td>
+<%--                                        <td><input id="${tbUser.id}" type="checkbox" class="minimal"></td>--%>
+<%--                                        <td>${tbUser.id}</td>--%>
+<%--                                        <td>${tbUser.username}</td>--%>
+<%--                                        <td>${tbUser.phone}</td>--%>
+<%--                                        <td>${tbUser.email}</td>--%>
+<%--                                        <td><fmt:formatDate value="${tbUser.created}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>--%>
+<%--                                        <td><fmt:formatDate value="${tbUser.updated}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>--%>
+<%--                                        <td>--%>
+<%--                                            <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i> 查看</a>&nbsp;--%>
+<%--                                            <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;--%>
+<%--                                            <a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</a>--%>
+<%--                                        </td>--%>
                                     </tr>
-                                </tbody>
                                 </c:forEach>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -157,54 +151,49 @@
 
 <%-- 自定义模态框 --%>
 <sys:modal/>
-<%--<script>--%>
-<%--    // 定义一个存放 ID 得数组--%>
-<%--    var idArray = new Array();--%>
-<%--    /**--%>
-<%--     * 批量删除--%>
-<%--     */--%>
-<%--    function deleteMulti() {--%>
-<%--        // 将选中元素得 ID 放入数组中--%>
-<%--        var _checkbox = App.getCheckBox();--%>
-<%--        _checkbox.each(function () {--%>
-<%--            var _id = $(this).attr("id");--%>
-<%--            if (_id != null && _id != "undefine" && $(this).is(":checked")) {--%>
-<%--                idArray.push(_id);--%>
-<%--            }--%>
-<%--        });--%>
 
-<%--        if (idArray.length === 0) {--%>
-<%--            $("#modal-message").html("您还没有选中任何数据项, 请至少选中一项");--%>
-<%--        } else {--%>
-<%--            $("#modal-message").html("您确定删除数据项嘛?");--%>
-<%--        }--%>
+<script>
+    var _dataTable;
 
-<%--        $("#modal-default").modal("show");--%>
-<%--    }--%>
+    $(function () {
+        var _columns = [
+            {
+                "data" : function (row, type, val, meta) {
+                    return '<input id="'+row.id+'" type="checkbox" class="minimal">';
+                }
+            },
+            {"data" : "id"},
+            {"data" : "username"},
+            {"data" : "phone"},
+            {"data" : "email"},
+           // {"data" : "created"},
+           // {"data" : "updated"},
+            {
+                "data" : function (row, type, val, meta) {
+                    var detailUrl = "/user/detail?id=" + row.id;
+                    return '<button type="button" class="btn btn-sm btn-default" onclick="App.showDatail(\''+detailUrl+'\')"><i class="fa fa-search"></i> 查看</button >&nbsp;&nbsp;'
+                        +'<a href="/user/form?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;'
+                        +'<a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</a>';
+                }
+            }
+        ];
+        _dataTable = App.initDataTables("/user/page", _columns);
 
-<%--    $(function () {--%>
-<%--        $("#btnModalOK").bind("click", function () {--%>
-<%--            del(idArray, "/user/delete");--%>
-<%--        });--%>
+    });
+    
+    function search() {
+        var username = $("#username").val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
 
-<%--        function del(idArray, url) {--%>
-<%--            if (idArray.length === 0) {--%>
-<%--                $("#modal-default").modal("hide");--%>
-<%--            }--%>
-
-<%--            else {--%>
-<%--                $.ajax({--%>
-<%--                    "url": url,--%>
-<%--                    "type": "POST",--%>
-<%--                    "data": {"ids" : idArray.toString()},--%>
-<%--                    "dataType": "JSON",--%>
-<%--                    "success": function (data) {--%>
-<%--                        console.log(data);--%>
-<%--                    }--%>
-<%--                })--%>
-<%--            }--%>
-<%--        }--%>
-<%--    });--%>
-<%--</script>--%>
+        var param = {
+            "username": username,
+            "phone": phone,
+            "email": email
+        };
+        _dataTable.settings()[0].ajax.data = param;
+        _dataTable.ajax.reload();
+    };
+</script>
 </body>
 </html>

@@ -74,24 +74,6 @@
         a.id = #{id}
     </select>
 
-    <select id="search" resultType="TbUser">
-        select
-        <include refid="tbUserColumns"/>
-        from
-        tb_user as a
-        <where>
-            <if test="username != null and username != ''">
-                and a.username like concat ('%', #{username}, '%')
-            </if>
-            <if test="phone != null and phone != ''">
-                and a.phone like concat ('%', #{phone}, '%')
-            </if>
-            <if test="email != null and email != ''">
-                and a.email like concat ('%', #{email}, '%')
-            </if>
-        </where>
-    </select>
-
     <delete id="deleteMulti">
         delete from tb_user
         where id in
@@ -99,4 +81,38 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="page" resultType="TbUser" parameterType="java.util.Map">
+        select
+        <include refid="tbUserColumns"/>
+        from
+        tb_user as a
+        <where>
+            <if test="tbUser.username != null and tbUser.username != ''">
+                and a.username like concat('%', #{tbUser.username}, '%')
+            </if>
+            <if test="tbUser.phone != null and tbUser.phone != ''">
+                and a.phone like concat('%', #{tbUser.phone}, '%')
+            </if>
+            <if test="tbUser.email != null and tbUser.email != ''">
+                and a.email like concat('%', #{tbUser.email}, '%')
+            </if>
+        </where>
+        limit #{start}, #{length}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from tb_user as a
+        <where>
+            <if test="username != null and username != ''">
+                and a.username like concat('%', #{username}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and a.phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                and a.email like concat('%', #{email}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

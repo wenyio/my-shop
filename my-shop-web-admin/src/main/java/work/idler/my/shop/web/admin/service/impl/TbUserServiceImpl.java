@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import work.idler.my.shop.commons.dto.BaseResult;
+import work.idler.my.shop.commons.dto.PageInfo;
 import work.idler.my.shop.commons.utils.RegexpUtils;
 import work.idler.my.shop.domain.TbUser;
 import work.idler.my.shop.web.admin.dao.TbUserDao;
 import work.idler.my.shop.web.admin.service.TbUserService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther:http://blog.idler.work
@@ -76,13 +79,31 @@ public class TbUserServiceImpl implements TbUserService {
     }
 
     @Override
-    public List<TbUser> search(TbUser tbUser) {
-        return tbUserDao.search(tbUser);
+    public void deleteMulti(String[] ids) {
+        tbUserDao.deleteMulti(ids);
     }
 
     @Override
-    public void deleteMulti(String[] ids) {
-        tbUserDao.deleteMulti(ids);
+    public PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser) {
+        int count = tbUserDao.count(tbUser);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", start);
+        params.put("length", length);
+        params.put("tbUser", tbUser);
+
+        PageInfo<TbUser> pageInfo = new PageInfo<>();
+        pageInfo.setDraw(draw);
+        pageInfo.setRecordsTotal(count);
+        pageInfo.setRecordsFiltered(count);
+        pageInfo.setData(tbUserDao.page(params));
+
+        return pageInfo;
+    }
+
+    @Override
+    public int count(TbUser tbUser) {
+        return tbUserDao.count(tbUser);
     }
 
     /**

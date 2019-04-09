@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import work.idler.my.shop.domain.TbUser;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther:http://blog.idler.work
@@ -46,15 +47,21 @@ public interface TbUserDao {
     TbUser getById(Long id);
 
     /**
-     * 搜索
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
-
-    /**
      * 批量删除
      * @param ids
      */
     void deleteMulti(String[] ids);
+
+    /**
+     * 分页查询
+     * @param params 需要两个参数, start length
+     * @return
+     */
+    List<TbUser> page(Map<String, Object> params);
+
+    /**
+     * 查询总笔数
+     * @return
+     */
+    int count(TbUser tbUser);
 }

@@ -2,6 +2,7 @@ package work.idler.my.shop.web.admin.service;
 
 import org.springframework.stereotype.Service;
 import work.idler.my.shop.commons.dto.BaseResult;
+import work.idler.my.shop.commons.dto.PageInfo;
 import work.idler.my.shop.domain.TbUser;
 
 import java.util.List;
@@ -41,15 +42,22 @@ public interface TbUserService {
     TbUser getById(Long id);
 
     /**
-     * 搜索功能
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
-
-    /**
      * 批量删除
      * @param ids
      */
     void deleteMulti(String[] ids);
+
+    /**
+     * 分页查询
+     * @param start
+     * @param length
+     * @return
+     */
+    PageInfo<TbUser> page(int start, int length, int draw, TbUser tbUser);
+
+    /**
+     * 查询总笔数
+     * @return
+     */
+    int count(TbUser tbUser);
 }

@@ -42,11 +42,12 @@
                     </c:if>
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">${tbuser.id == null ? "新增" : "编辑"}用户</h3>
+                            <h3 class="box-title">${tbUser.id == null ? "新增" : "编辑"}用户</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
                         <form:form id="inputForm" cssClass="form-horizontal" action="/user/save" method="post" modelAttribute="tbUser">
+                            <form:hidden path="id" />
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">邮箱</label>
