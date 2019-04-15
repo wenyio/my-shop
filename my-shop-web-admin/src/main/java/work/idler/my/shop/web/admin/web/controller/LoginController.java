@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import work.idler.my.shop.commons.constant.ConstantUtils;
 import work.idler.my.shop.domain.TbUser;
-import work.idler.my.shop.domain.User;
 import work.idler.my.shop.web.admin.service.TbUserService;
 
 import javax.servlet.http.HttpServletRequest;

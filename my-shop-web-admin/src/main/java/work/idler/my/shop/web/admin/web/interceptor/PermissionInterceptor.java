@@ -4,7 +4,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import work.idler.my.shop.commons.constant.ConstantUtils;
 import work.idler.my.shop.domain.TbUser;
-import work.idler.my.shop.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

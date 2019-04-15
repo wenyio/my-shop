@@ -87,6 +87,10 @@
         </dependency>
         <!-- DataBase End -->
 
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

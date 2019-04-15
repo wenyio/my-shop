@@ -55,5 +55,6 @@
 <script src="/static/assets/js/adminlte.min.js"></script>
 
 <%-- APP --%>
-<script src="/static/assets/app/validate.js"></script>
+<%--<script src="/static/assets/app/validate.js"></script>--%>
 <script src="/static/assets/app/app.js"></script>
+<script src="/static/assets/app/datetime.js"></script>

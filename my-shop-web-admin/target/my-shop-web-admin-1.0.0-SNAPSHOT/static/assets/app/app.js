@@ -7,6 +7,25 @@ var App = function () {
     // 用户存放 ID 得数组
     var _idArray;
 
+    // 默认得 Dropzone 参数
+    var defaultDropzoneOpts = {
+        url: "",
+        paramName: "dropFile",
+        maxFiles: 1,// 一次性上传的文件数量上限
+        maxFilesize: 2, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传"+ this.maxFiles +"个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消"
+    };
+
     /**
      * 私有方法
      */
@@ -170,6 +189,55 @@ var App = function () {
         return _dataTable;
     };
 
+    var handlerInitZTree = function (url, autoParam, callback) {
+        var setting = {
+            view: {
+                selectedMulti: false
+            },
+            async: {
+                enable: true,
+                url: url,
+                autoParam: autoParam
+            }
+        };
+
+        $.fn.zTree.init($("#myTree"), setting);
+
+        /**
+         * 初始化 zTree
+         * @param url
+         * @param autoParam
+         * @param callback
+         */
+        $("#btnModalOK").bind("click", function () {
+            var zTree = $.fn.zTree.getZTreeObj("myTree");
+            var nodes = zTree.getSelectedNodes();
+
+            // 未选择
+            if(nodes.length == 0) {
+                alert("请选择一个节点");
+            }
+
+            // 已选择
+            else {
+                callback(nodes);
+            }
+        });
+    };
+
+    /**
+     * 初始化 Dropzone
+     * @param opts
+     */
+    var handlerInitDropzone = function (opts) {
+        // 关闭 Dropzone 得自动发现功能
+        Dropzone.autoDiscover = false;
+        // 继承
+        $.extend(defaultDropzoneOpts, opts);
+
+        new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
+    };
+
     /**
      * 查看详情
      * @param url
@@ -212,6 +280,24 @@ var App = function () {
          */
         initDataTables: function (url, columns) {
             return handlerInitDataTables(url, columns);
+        },
+
+        /**
+         * 初始化 zTree
+         * @param url
+         * @param autoParam
+         * @param callback
+         */
+        initZTree: function(url, autoParam, callback) {
+            handlerInitZTree(url, autoParam, callback);
+        },
+
+        /**
+         * 初始化 Dropzone
+         * @param opts
+         */
+        initDropzone: function(opts) {
+            handlerInitDropzone(opts);
         },
 
         /**
