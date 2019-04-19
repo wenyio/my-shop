@@ -173,7 +173,7 @@
                     var detailUrl = "/user/detail?id=" + row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.showDatail(\''+detailUrl+'\')"><i class="fa fa-search"></i> 查看</button >&nbsp;&nbsp;'
                         +'<a href="/user/form?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;'
-                        +'<a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</a>';
+                        +'<a href="#" type="button" class="btn btn-sm btn-danger" onclick="App.deleteSingle(\''+delete+'\', \''+row.id+'\')"><i class="fa fa-trash-o"></i> 删除</a>';
                 }
             }
         ];

@@ -60,6 +60,22 @@ var App = function () {
         });
     };
 
+    var handlerdeleteSingle = function (url, id, msg) {
+        // 可选参数
+        if (!msg) msg = null;
+
+        // 将 ID 放入数组中, 以便和批量删除通用
+        _idArray = new Array();
+        _idArray.push(id);
+
+        $("#modal-message").html(msg == null ? "您确定删除数据项吗?" : msg);
+        $("#modal-default").modal("show");
+        // 绑定删除事件
+        $("#btnModalOK").bind("click", function () {
+            handlerDeleteData(url);
+        });
+    };
+
     /**
      * 批量删除
      */
@@ -86,58 +102,59 @@ var App = function () {
 
         // 如果用户选择了数据项则调用删除方法
         $("#btnModalOK").bind("click", function () {
-            del();
+            handlerDeleteData(url);
         });
-
-        /**
-         * 当前私有函数得私有函数, 删除数据
-         */
-        function del() {
-            $("#modal-default").modal("hide");
-
-            // 如果没有选择数据项得处理
-            if (_idArray.length === 0) {
-                //..
-                // $("#modal-default").modal("hide");
-            }
-
-            // 否则, 删除操作
-            else {
-                setTimeout(function () {
-                    $.ajax({
-                        "url": url,
-                        "type": "POST",
-                        "data": {"ids" : _idArray.toString()},
-                        "dataType": "JSON",
-                        "success": function (data) {
-                            // 请求成功后, 无论是成功或是失败都需要弹出模态框进行提示, 所以这里需要解绑原来得 click 事件
-                            $("#btnModalOK").unbind("click");
-
-                            // 删除成功
-                            if (data.status === 200) {
-                                // 刷新页面
-                                $("#btnModalOK").bind("click", function () {
-                                    window.location.reload();
-                                });
-                            }
-
-                            // 删除失败
-                            else {
-                                // 确定按钮得事件 改为隐藏模态框
-                                $("#btnModalOK").bind("click", function () {
-                                    $("#modal-message").modal("hide");
-                                });
-                            }
-
-                            // 因为无论如何都需要提示信息, 所以这里得模态框是必须调用得
-                            $("#modal-message").html(data.message);
-                            $("#modal-default").modal("show");
-                        }
-                    })
-                }, 500);
-            }
-        }
     };
+
+    /**
+     * AJAX 异步删除
+     * @param url
+     */
+     var handlerDeleteData = function (url) {
+        $("#modal-default").modal("hide");
+
+        // 如果没有选择数据项得处理
+        if (_idArray.length === 0) {
+            //..
+            // $("#modal-default").modal("hide");
+        }
+
+        // 否则, 删除操作
+        else {
+            setTimeout(function () {
+                $.ajax({
+                    "url": url,
+                    "type": "POST",
+                    "data": {"ids" : _idArray.toString()},
+                    "dataType": "JSON",
+                    "success": function (data) {
+                        // 请求成功后, 无论是成功或是失败都需要弹出模态框进行提示, 所以这里需要解绑原来得 click 事件
+                        $("#btnModalOK").unbind("click");
+
+                        // 删除成功
+                        if (data.status === 200) {
+                            // 刷新页面
+                            $("#btnModalOK").bind("click", function () {
+                                window.location.reload();
+                            });
+                        }
+
+                        // 删除失败
+                        else {
+                            // 确定按钮得事件 改为隐藏模态框
+                            $("#btnModalOK").bind("click", function () {
+                                $("#modal-message").modal("hide");
+                            });
+                        }
+
+                        // 因为无论如何都需要提示信息, 所以这里得模态框是必须调用得
+                        $("#modal-message").html(data.message);
+                        $("#modal-default").modal("show");
+                    }
+                })
+            }, 500);
+        }
+    }
 
     /**
      * 初始化 DataTables
@@ -262,6 +279,16 @@ var App = function () {
         init: function(){
             handlerCheckbox();
             handlerCheckBoxAll();
+        },
+
+        /**
+         * 删除单笔数据
+         * @param url
+         * @param id
+         * @param msg
+         */
+        deleteSingle: function(url, id, msg) {
+            handlerdeleteSingle(url, id, msg);
         },
 
         /**
