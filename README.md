@@ -3,7 +3,7 @@
 
 ## 技术
 ### 总
-spring springmvc mytatis  
+spring springmvc mybatis  
 
 ### 字段验证 
 Spring Validation
